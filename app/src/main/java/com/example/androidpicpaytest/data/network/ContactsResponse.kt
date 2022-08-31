@@ -1,4 +1,4 @@
-package com.example.androidpicpaytest.domain.network.repository
+package com.example.androidpicpaytest.data.network
 
 import com.google.gson.annotations.SerializedName
 
