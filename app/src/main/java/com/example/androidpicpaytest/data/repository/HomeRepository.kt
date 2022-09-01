@@ -13,7 +13,7 @@ import kotlinx.coroutines.withContext
 import retrofit2.Response
 import javax.inject.Inject
 
-class HomeRepository @Inject constructor(
+class HomeRepository @Inject constructor(val context: Context,
     private val contactsService: ContactsService
 ): IHomeRepository {
 
@@ -28,15 +28,17 @@ class HomeRepository @Inject constructor(
         }.flowOn(Dispatchers.IO)
     }
 
-    override suspend fun getListContactsDatabase(context: Context): Flow<List<UserEntity>> {
+    override suspend fun getListContactsDatabase(): Flow<List<UserEntity>> {
         return withContext(Dispatchers.IO) {
             contactsDB(context).recipeDao().getContactsListDataBase()
         }
     }
 
-    override suspend fun setListContactsDatabase(context: Context, userEntityList: List<UserEntity>) {
+    override suspend fun setListContactsDatabase(userEntityList: List<UserEntity>) {
         withContext(Dispatchers.IO) {
             contactsDB(context).recipeDao().setContactsListDataBase(userEntityList = userEntityList)
         }
     }
+
+
 }

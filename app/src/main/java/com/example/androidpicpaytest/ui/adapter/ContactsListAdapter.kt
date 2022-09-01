@@ -68,9 +68,10 @@ class ContactsListAdapter() : RecyclerView.Adapter<ContactsListViewHolder>() {
             Timber.tag(Utils.TAG_TIMBER).v("Exception: ${e.message.toString()}")
         }
 
-        fun populateAdapter(contactsList: List<ContactsResponse>) {
-            contactsAdapterList = contactsList
-            notifyDataSetChanged()
-        }
+    }
+
+    fun populateAdapter(contactsList: List<ContactsResponse>) {
+        contactsAdapterList = contactsList
+        notifyDataSetChanged()
     }
 }
