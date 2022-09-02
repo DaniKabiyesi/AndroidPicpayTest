@@ -1,6 +1,7 @@
 package com.example.androidpicpaytest.ui
 
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -16,7 +17,7 @@ class HomeActivity : AppCompatActivity() {
 
     private val viewModel : HomeViewModel by viewModels()
     private lateinit var binding: ActivityHomeBinding
-    private val contactsListAdapter = ContactsListAdapter(listOf())
+    private val contactsListAdapter = ContactsListAdapter()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,20 +31,20 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun setObservers(){
-       viewModel.contactsListDataResponse.observe(this){
-           setUpRecyclerView()
-           contactsListAdapter.populateAdapter(it)
-//           homeBinding.userListProgressBar.visibility = View.INVISIBLE
+       viewModel.contactsListDataResponse.observe(this){ contactsListResponse ->
+           setUpRecyclerView(contactsListResponse)
+           binding.userListProgressBar.visibility = View.INVISIBLE
        }
         viewModel.contactsListDataErrorResponse.observe(this){
             Toast.makeText(this, "Erro de Conexão", Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun setUpRecyclerView(){
+    private fun setUpRecyclerView(contactsListResponse: List<ContactsResponse>){
         val recyclerContactsList = binding.recyclerView
         recyclerContactsList.adapter = contactsListAdapter
         recyclerContactsList.layoutManager = LinearLayoutManager(this)
+        contactsListAdapter.populateAdapter(contactsListResponse)
 
     }
 }

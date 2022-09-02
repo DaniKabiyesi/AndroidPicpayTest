@@ -31,14 +31,13 @@ class HomeViewModel @Inject constructor(private val repository: IHomeRepository)
         }
     }
 
-    fun setContactsListDatabase(userEntityList: List<UserEntity>) {
+    private fun setContactsListDatabase(userEntityList: List<UserEntity>) {
         viewModelScope.launch {
             repository.setListContactsDatabase(userEntityList)
         }
     }
 
-    fun getContactsListDatabase() = viewModelScope.launch {
-//        _contactsListDataResponse.postValue(State.loading(null))
+    private fun getContactsListDatabase() = viewModelScope.launch {
         repository.getListContactsDatabase().collect{ userEntityList ->
             if(userEntityList.isEmpty()){
                 _contactsListDataErrorResponse.postValue(Utils.ERROR_LIST)
@@ -56,14 +55,13 @@ class HomeViewModel @Inject constructor(private val repository: IHomeRepository)
         }
     }
 
-    fun getContactsListNetwork() = viewModelScope.launch {
-//        _contactsListDataResponse.postValue(State.loading(data = null))
+    private fun getContactsListNetwork() = viewModelScope.launch {
         repository.getListContacts().collect{ response ->
             if(response.isSuccessful){
                 response.body()?.let { contactsListResponse ->
                     val userEntityList = contactsListResponse.map {
                         UserEntity(
-                            id = it.id,
+                            id = null,
                             name = it.name,
                             img = it.img,
                             username = it.username

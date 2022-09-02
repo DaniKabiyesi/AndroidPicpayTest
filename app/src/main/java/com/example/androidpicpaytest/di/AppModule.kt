@@ -4,9 +4,6 @@ import android.content.Context
 import com.example.androidpicpaytest.data.db.ContactsDataBase
 import com.example.androidpicpaytest.data.db.UserDao
 import com.example.androidpicpaytest.data.network.ContactsService
-import com.example.androidpicpaytest.data.repository.HomeRepository
-import com.example.androidpicpaytest.data.repository.IHomeRepository
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

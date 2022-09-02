@@ -1,12 +1,10 @@
 package com.example.androidpicpaytest.data.repository
 
 import android.content.Context
+import com.example.androidpicpaytest.data.db.ContactsDataBase
 import com.example.androidpicpaytest.data.network.ContactsResponse
 import com.example.androidpicpaytest.data.network.ContactsService
-import com.example.androidpicpaytest.data.db.ContactsDataBase
-import com.example.androidpicpaytest.data.db.UserDao
 import com.example.androidpicpaytest.domain.UserEntity
-import dagger.hilt.android.qualifiers.ActivityContext
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow

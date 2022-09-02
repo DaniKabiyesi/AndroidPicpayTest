@@ -15,7 +15,7 @@ import com.example.androidpicpaytest.common.Utils
 import com.example.androidpicpaytest.data.network.ContactsResponse
 import timber.log.Timber
 
-class ContactsListAdapter(private val listContatcs: List<ContactsResponse>) : RecyclerView.Adapter<ContactsListViewHolder>() {
+class ContactsListAdapter : RecyclerView.Adapter<ContactsListViewHolder>() {
 
     private var contactsAdapterList: List<ContactsResponse> = listOf()
 
