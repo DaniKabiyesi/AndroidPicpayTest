@@ -20,7 +20,7 @@ AndroidPicpayTeste
 - [RecyclerView](https://developer.android.com/guide/topics/ui/layout/recyclerview) - Criação de Listas
 - [Clean Architecture - MVVVM](https://developer.android.com/jetpack/guide) - Arquitetura do projeto
 - [API - OpenWeather](https://openweathermap.org/api) - Requisiçao de dados remotos
-- [Hilt-Dagger](https://dagger.dev/hilt/) - Injeção de dependencia 
+- [Hilt-Dagger](https://dagger.dev/hilt/) - Injeção de dependência  
 
 ---
 
