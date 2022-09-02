@@ -1,55 +1,49 @@
 package com.example.androidpicpaytest.ui
 
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.androidpicpaytest.R
-import com.example.androidpicpaytest.common.isNetworkConnect
 import com.example.androidpicpaytest.data.network.ContactsResponse
-import com.example.androidpicpaytest.data.resource.State
-import com.example.androidpicpaytest.data.resource.Status
 import com.example.androidpicpaytest.databinding.ActivityHomeBinding
 import com.example.androidpicpaytest.ui.adapter.ContactsListAdapter
-import javax.inject.Inject
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-
-    private val viewModel by viewModels<HomeViewModel> { viewModelFactory }
-    private val homeBinding by lazy { ActivityHomeBinding.inflate(layoutInflater) }
-    private val contactsListAdapter by lazy { ContactsListAdapter() }
+    private val viewModel : HomeViewModel by viewModels()
+    private lateinit var binding: ActivityHomeBinding
+    private val contactsListAdapter = ContactsListAdapter(listOf())
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
+        binding = ActivityHomeBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        setObservers()
+        ViewModelProvider(this)[HomeViewModel::class.java]
         viewModel.loadContactsData(this)
+        setObservers()
     }
 
     private fun setObservers(){
        viewModel.contactsListDataResponse.observe(this){
-           setUpRecyclerView(it)
-           homeBinding.userListProgressBar.visibility = View.INVISIBLE
+           setUpRecyclerView()
+           contactsListAdapter.populateAdapter(it)
+//           homeBinding.userListProgressBar.visibility = View.INVISIBLE
        }
         viewModel.contactsListDataErrorResponse.observe(this){
             Toast.makeText(this, "Erro de Conexão", Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun setUpRecyclerView(list: List<ContactsResponse>){
-        homeBinding.recyclerView.apply {
-            adapter = contactsListAdapter
-            layoutManager = LinearLayoutManager(this@HomeActivity)
-        }
-        contactsListAdapter.populateAdapter(list)
+    private fun setUpRecyclerView(){
+        val recyclerContactsList = binding.recyclerView
+        recyclerContactsList.adapter = contactsListAdapter
+        recyclerContactsList.layoutManager = LinearLayoutManager(this)
+
     }
 }

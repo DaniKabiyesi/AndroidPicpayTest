@@ -1,4 +1,4 @@
-package com.example.androidpicpaytest.data.cache
+package com.example.androidpicpaytest.data.db
 
 import android.content.Context
 import androidx.room.Database
@@ -9,14 +9,13 @@ import com.example.androidpicpaytest.domain.UserEntity
 @Database(entities = [UserEntity::class], version=1, exportSchema=false)
 abstract class ContactsDataBase : RoomDatabase() {
 
-    abstract fun recipeDao(): UserDao
+    abstract fun getUserDao(): UserDao
 
     companion object{
-        @Volatile
-        private var INSTANCE: ContactsDataBase? = null
+        private var DB_INSTANCE: ContactsDataBase? = null
 
         fun getDataBase(context: Context) : ContactsDataBase {
-            val tempInstance = INSTANCE
+            val tempInstance = DB_INSTANCE
             if(tempInstance != null) return tempInstance
 
             synchronized(this){
@@ -25,7 +24,7 @@ abstract class ContactsDataBase : RoomDatabase() {
                         ContactsDataBase::class.java,
                         "database_name")
                     .build()
-                INSTANCE = instance
+                DB_INSTANCE = instance
                 return instance
             }
         }

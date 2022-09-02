@@ -1,15 +1,13 @@
 package com.example.androidpicpaytest
 
 import android.app.Application
-import com.example.androidpicpaytest.di.ApplicationComponent
+import dagger.hilt.android.HiltAndroidApp
 
-class ContactsApplication : Application() {
+@HiltAndroidApp
+class ContactsApplication: Application() {
 
-    lateinit var applicationComponent: ApplicationComponent
-
-    override fun onCreate() {
-        super.onCreate()
-
-       applicationComponent = Dagger
-    }
+//    override fun onCreate() {
+//        super.onCreate()
+//
+//    }
 }

@@ -11,11 +11,11 @@ import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
 import com.example.androidpicpaytest.R
-import com.example.androidpicpaytest.data.network.ContactsResponse
 import com.example.androidpicpaytest.common.Utils
+import com.example.androidpicpaytest.data.network.ContactsResponse
 import timber.log.Timber
 
-class ContactsListAdapter() : RecyclerView.Adapter<ContactsListViewHolder>() {
+class ContactsListAdapter(private val listContatcs: List<ContactsResponse>) : RecyclerView.Adapter<ContactsListViewHolder>() {
 
     private var contactsAdapterList: List<ContactsResponse> = listOf()
 
@@ -71,7 +71,7 @@ class ContactsListAdapter() : RecyclerView.Adapter<ContactsListViewHolder>() {
     }
 
     fun populateAdapter(contactsList: List<ContactsResponse>) {
-        contactsAdapterList = contactsList
-        notifyDataSetChanged()
+        this.contactsAdapterList = contactsList
+        notifyItemRangeInserted(0, contactsList.size)
     }
 }

@@ -4,12 +4,14 @@ import com.example.androidpicpaytest.data.repository.HomeRepository
 import com.example.androidpicpaytest.data.repository.IHomeRepository
 import dagger.Binds
 import dagger.Module
-import javax.inject.Singleton
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 
+
+@InstallIn(SingletonComponent::class)
 @Module
-abstract class DataModule {
+abstract class RepositoryModule {
 
-    @Singleton
     @Binds
-    abstract fun provideLocalDataSource(repository: HomeRepository): IHomeRepository
+    abstract fun bindHomeRepository(homeRepository: HomeRepository) : IHomeRepository
 }

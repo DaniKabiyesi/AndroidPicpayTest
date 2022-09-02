@@ -5,6 +5,6 @@ import retrofit2.http.GET
 
 interface ContactsService {
 
-    @GET("/users")
+    @GET("users")
     suspend fun getContactsList(): Response<List<ContactsResponse>>
 }

@@ -3,8 +3,11 @@ package com.example.androidpicpaytest.data.repository
 import android.content.Context
 import com.example.androidpicpaytest.data.network.ContactsResponse
 import com.example.androidpicpaytest.data.network.ContactsService
-import com.example.androidpicpaytest.data.cache.ContactsDataBase
+import com.example.androidpicpaytest.data.db.ContactsDataBase
+import com.example.androidpicpaytest.data.db.UserDao
 import com.example.androidpicpaytest.domain.UserEntity
+import dagger.hilt.android.qualifiers.ActivityContext
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -13,11 +16,12 @@ import kotlinx.coroutines.withContext
 import retrofit2.Response
 import javax.inject.Inject
 
-class HomeRepository @Inject constructor(val context: Context,
+class HomeRepository @Inject constructor(
+    @ApplicationContext private val context: Context,
     private val contactsService: ContactsService
 ): IHomeRepository {
 
-    private fun contactsDB(context: Context): ContactsDataBase{
+    private fun contactsDB(): ContactsDataBase{
         return ContactsDataBase.getDataBase(context)
     }
 
@@ -30,13 +34,13 @@ class HomeRepository @Inject constructor(val context: Context,
 
     override suspend fun getListContactsDatabase(): Flow<List<UserEntity>> {
         return withContext(Dispatchers.IO) {
-            contactsDB(context).recipeDao().getContactsListDataBase()
+            contactsDB().getUserDao().getContactsListDataBase()
         }
     }
 
     override suspend fun setListContactsDatabase(userEntityList: List<UserEntity>) {
         withContext(Dispatchers.IO) {
-            contactsDB(context).recipeDao().setContactsListDataBase(userEntityList = userEntityList)
+            contactsDB().getUserDao().setContactsListDataBase(userEntityList = userEntityList)
         }
     }
 

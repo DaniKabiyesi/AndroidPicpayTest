@@ -1,4 +1,4 @@
-package com.example.androidpicpaytest.data.cache
+package com.example.androidpicpaytest.data.db
 
 import androidx.room.Dao
 import androidx.room.Insert

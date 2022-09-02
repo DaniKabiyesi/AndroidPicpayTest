@@ -9,11 +9,12 @@ import com.example.androidpicpaytest.common.Utils
 import com.example.androidpicpaytest.common.isNetworkConnect
 import com.example.androidpicpaytest.data.network.ContactsResponse
 import com.example.androidpicpaytest.data.repository.IHomeRepository
-import com.example.androidpicpaytest.data.resource.State
 import com.example.androidpicpaytest.domain.UserEntity
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class HomeViewModel @Inject constructor(private val repository: IHomeRepository) : ViewModel() {
 
     private val _contactsListDataResponse = MutableLiveData<List<ContactsResponse>>()
@@ -50,7 +51,7 @@ class HomeViewModel @Inject constructor(private val repository: IHomeRepository)
                         username = it.username
                     )
                 }
-                _contactsListDataResponse.postValue(contactsResponseList)
+                _contactsListDataResponse.value = contactsResponseList
             }
         }
     }
@@ -68,11 +69,11 @@ class HomeViewModel @Inject constructor(private val repository: IHomeRepository)
                             username = it.username
                         )
                     }
-                    _contactsListDataResponse.postValue(contactsListResponse)
+                    _contactsListDataResponse.value = contactsListResponse
                     setContactsListDatabase(userEntityList)
                 }
             } else {
-                _contactsListDataErrorResponse.postValue("${response.message()} ${response.code()}")
+                _contactsListDataErrorResponse.value = ("${response.message()} ${response.code()}")
             }
         }
     }
