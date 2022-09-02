@@ -8,7 +8,7 @@ AndroidPicpayTeste
 <!-- Subtitle/Description -->
 <h4>AndroidPicpayTest é um aplicativo desenvolvido para um teste técnico. </h4>
   <p align="left">
-  Foi muito legal desenvolver essa app. Pude aperfeiçoar e colocar em teste todos os conhecimentos de arquitetura que vinha aprendendo.
+  Foi muito legal desenvolver esse app. Pude aperfeiçoar e colocar em teste todos os conhecimentos de arquitetura e de injeção de dependência que venho aprendendo.
   </p>
 <img src="https://github.com/mobilepicpay/desafio-android/blob/master/desafio-picpay.gif" width="300"/>
 <p>
