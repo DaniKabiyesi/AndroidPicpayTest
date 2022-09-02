@@ -7,6 +7,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.androidpicpaytest.R
 import com.example.androidpicpaytest.data.network.ContactsResponse
 import com.example.androidpicpaytest.databinding.ActivityHomeBinding
 import com.example.androidpicpaytest.ui.adapter.ContactsListAdapter
@@ -19,32 +20,29 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
     private val contactsListAdapter = ContactsListAdapter()
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setUpRecyclerView()
 
-        ViewModelProvider(this)[HomeViewModel::class.java]
-        viewModel.loadContactsData(this)
         setObservers()
+        viewModel.loadContactsData(this)
     }
 
     private fun setObservers(){
        viewModel.contactsListDataResponse.observe(this){ contactsListResponse ->
-           setUpRecyclerView(contactsListResponse)
-           binding.userListProgressBar.visibility = View.INVISIBLE
+           contactsListAdapter.populateAdapter(contactsListResponse)
+           binding.userListProgressBar.visibility = View.GONE
        }
         viewModel.contactsListDataErrorResponse.observe(this){
-            Toast.makeText(this, "Erro de Conexão", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.error), Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun setUpRecyclerView(contactsListResponse: List<ContactsResponse>){
+    private fun setUpRecyclerView(){
         val recyclerContactsList = binding.recyclerView
         recyclerContactsList.adapter = contactsListAdapter
         recyclerContactsList.layoutManager = LinearLayoutManager(this)
-        contactsListAdapter.populateAdapter(contactsListResponse)
-
     }
 }
