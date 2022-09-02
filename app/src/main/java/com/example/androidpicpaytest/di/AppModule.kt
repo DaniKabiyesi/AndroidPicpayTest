@@ -1,6 +1,7 @@
 package com.example.androidpicpaytest.di
 
 import android.content.Context
+import com.example.androidpicpaytest.BuildConfig
 import com.example.androidpicpaytest.data.db.ContactsDataBase
 import com.example.androidpicpaytest.data.db.UserDao
 import com.example.androidpicpaytest.data.network.ContactsService
@@ -28,8 +29,6 @@ class AppModule {
         return contactsDataBase.getUserDao()
     }
 
-    val BASE_URL = "https://609a908e0f5a13001721b74e.mockapi.io/picpay/api/"
-
 
     @Provides
     @Singleton
@@ -41,7 +40,7 @@ class AppModule {
     @Singleton
     fun providesRetrofit() : Retrofit {
         return Retrofit.Builder()
-            .baseUrl(BASE_URL)
+            .baseUrl(BuildConfig.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
